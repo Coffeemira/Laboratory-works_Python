@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Архив статей</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/article.css' %}">
+</head>
+<body class="archive">
+    <div class="header">
+        <img src="https://via.placeholder.com/318x60?text=Django+public+blog" alt="Логотип">
+        <a href="{% url 'archive' %}" class="nav-link">Все статьи</a>
+        <a href="{% url 'register' %}" class="nav-link">Регистрация</a>
+        <a href="{% url 'login' %}" class="nav-link">Вход</a>
+    </div>
+
+    <div class="archive">
+        {% for post in posts %}
+            <div class="post one-post">
+                <h2 class="post-title"><a href="{% url 'get_article' article_id=post.id %}">{{ post.title }}</a></h2>
+                <div class="post-meta">
+                    <span class="article-author">{{ post.author.username }}</span>
+                    <span class="article-created-date">{{ post.created_date|date:"d F Y" }}</span>
+                </div>
+                <div class="article-text">
+                    {{ post.text|truncatewords:50 }}
+                </div>
+                <button class="fold-button">свернуть</button>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script src="{% static 'js/helloworld.js' %}"></script>
+    <script src="{% static 'js/fold-post.js' %}"></script>
+</body>
+</html>

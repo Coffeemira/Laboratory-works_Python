@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sk#-d$s^%z5@xm2h#38=nh5z-$x13&*)+f6$vg7vjx)@k*hor%'
+SECRET_KEY = 'django-insecure-x3^2vwym7a2bq@+0xm%nmtp^^7$1oxre_--f*$=0*4lorhlfq2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -51,11 +51,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'firstwebpage.urls'
+import os
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'flatpages')],
+        'DIRS': [os.path.join(BASE_DIR, 'flatpages/templates')],  # ← добавьте эту строку
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,16 +69,21 @@ TEMPLATES = [
     },
 ]
 
+# Добавьте также настройки статики:
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'flatpages/static'),
+]
+
 WSGI_APPLICATION = 'firstwebpage.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES: {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db_firstwebpage.sqlite3'),
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -116,10 +122,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'flatpages/static'),
-]
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
